@@ -25,7 +25,12 @@ attr_accessor :life_motto
   end
 
   def join_cult (cult)
-    BloodOath.new(self, cult, Date.today.to_s)
+    if self.age >= cult.min_age
+      BloodOath.new(self, cult, Date.today.to_s)
+    else
+      return "Too young to join."
+    end
+
   end
 
   def self.of_a_certain_age(age)
@@ -64,5 +69,23 @@ attr_accessor :life_motto
         bo.follower == follower
       end.length
     end.last(10).reverse
+  end
+
+  def fellow_cult_members
+    fellow_followers = []
+    self.cults.each do |bo|
+
+    fellow_followers <<  BloodOath.all.select do |bo_fellow|
+        bo_fellow.cult == bo.cult
+      end
+
+    end
+    fellow_followers.flatten.select do |bo|
+
+      bo.follower != self
+    end.map do |bo_fellow|
+
+      bo_fellow.follower
+    end.uniq
   end
 end

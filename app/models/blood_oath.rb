@@ -18,7 +18,7 @@ attr_reader :follower, :cult, :initiation_date
   def self.first_oath
     self.all.sort_by do |bo|
       bo.initiation_date
-    end.first.follower 
+    end.first.follower
   end
 
 end
