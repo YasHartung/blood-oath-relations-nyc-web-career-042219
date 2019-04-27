@@ -18,7 +18,7 @@ orlando = Follower.new("Orlando", 117, "Beat the Dwarf")
 smeagul_good = BloodOath.new(smeagul, elves, "1715-09-03")
 gollum_bad = BloodOath.new(gollum, satan,"1732-10-16")
 orlando_elf = BloodOath.new(orlando, other_elves, "1635-01-25")
-
+orlando.join_cult(elves)
 binding.pry
 
 puts "Mwahahaha!" # just in case pry is buggy and exits

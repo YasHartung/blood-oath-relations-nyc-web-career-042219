@@ -33,4 +33,36 @@ attr_accessor :life_motto
       follower.age >= age
     end
   end
+
+  def my_cults_slogans
+    BloodOath.all.select do |bo|
+      bo.follower == self
+    end.map do |bo_follower|
+      bo_follower.cult.slogan
+    end
+  end
+
+  def self.most_active
+    max_count = 0
+    max_follower = nil
+    self.all.each do |follower|
+      cult_count = BloodOath.all.select do |bo|
+        bo.follower == follower
+      end.length
+
+        if cult_count > max_count
+          max_count = cult_count
+          max_follower = follower
+        end
+    end
+    max_follower
+  end
+
+  def self.top_ten
+    self.all.sort_by do |follower|
+      BloodOath.all.select do |bo|
+        bo.follower == follower
+      end.length
+    end.last(10).reverse
+  end
 end

@@ -15,4 +15,10 @@ attr_reader :follower, :cult, :initiation_date
     @@all
   end
 
+  def self.first_oath
+    self.all.sort_by do |bo|
+      bo.initiation_date
+    end.first.follower 
+  end
+
 end
